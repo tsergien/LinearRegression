@@ -6,7 +6,7 @@ import pandas as pd
 import sys
 
 if __name__ == "__main__":
-    trainer = Trainer(10)
+    trainer = Trainer()
 
     # pass file name as parameter later
     data = pd.read_csv(sys.argv[1], sep=",") 
