@@ -17,6 +17,11 @@ class Predict:
         self.theta0 = theta0
         self.theta1 = theta1
 
+    def get_weights(self):
+        '''Returns weights'''
+        return self.theta0, self. theta1
+    
+
     def weights_update(self, theta0: float, theta1: float) -> None:
         '''Sets parameters for predictions
         makes step in the antigradietds direction
