@@ -5,13 +5,20 @@ import numpy as np
 import pandas as pd
 import sys
 
+from scaling import Scaler
+
 if __name__ == "__main__":
     trainer = Trainer()
 
-    # pass file name as parameter later
-    data = pd.read_csv(sys.argv[1], sep=",") 
 
-    m = np.matrix([data.km, data.price]).T
-    print(f'matrix {m.shape}')
+    if len(sys.argv) > 1:
+        data = pd.read_csv(sys.argv[1], sep=",") 
+        scaled_data = Scaler.rescale(data)
 
-    trainer.train(m.A)
+        m = np.matrix([scaled_data.km, scaled_data.price]).T
+
+        trainer.train(m.A)
+
+    else:
+        print('Please pass filename with data.')
+
