@@ -12,10 +12,11 @@ from Predictor import Predict
 
 
 class Trainer:
-    def __init__(self, epochs=3000, l_rate=0.001) -> None:
+    def __init__(self, epochs=3000, l_rate=0.001, mus=[0,0], sigmas=[1,1]) -> None:
         self.epochs: int = epochs
         self.l_rate: float = l_rate
         self.estimator = Predict(0, 0)
+        self.estimator.set_scaling_parameters(mus, sigmas)
 
 
     def graph(self, data: np.ndarray):

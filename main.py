@@ -18,11 +18,11 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1:
         data = pd.read_csv(sys.argv[1], sep=",") 
-        scaled_data = Scaler.rescale(data)
+        scaled_data, mus, sigmas = Scaler.rescale(data)
 
         m = np.matrix([scaled_data.km, scaled_data.price]).T
 
-        trainer = Trainer(epochs=epochs, l_rate=learning_rate)
+        trainer = Trainer(epochs=epochs, l_rate=learning_rate, mus=mus, sigmas=sigmas)
         trainer.train(m.A, True)
 
 
