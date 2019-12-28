@@ -18,11 +18,8 @@ if __name__ == "__main__":
         else:
             miles = int(inp)
             estimator = pickle.load(open('weights.sav', 'rb'))
-            mus, sigmas = estimator.get_scaling_parameters()
-            mu, mu2 = mus[0], mus[1]
-            sigma, sigma2 = sigmas[0], sigmas[1]
+            [mu, mu2], [sigma, sigma2] = estimator.get_scaling_parameters()
 
             scaled_mileage = (miles - mu) / sigma
             print(f'Estimated price is: ${int(estimator.predict(scaled_mileage) * sigma2 + mu2)}')
 
-            

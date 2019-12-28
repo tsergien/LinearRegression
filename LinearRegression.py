@@ -18,15 +18,13 @@ class LinearRegression:
         self.estimator = Regressor(0, 0)
 
 
-    def graph(self, data: np.ndarray, dots: np.ndarray):
-        x = np.linspace(data.min(0)[0]-1, data.max(0)[0]+1, 100)
-        y = self.estimator.predict(x)
-        plt.plot(x, y, 'k')
+    def graph(self, xg, yg, dots: np.ndarray, c='k', title='Graph'):
+        plt.plot(xg, yg, color=c)
         plt.xlabel('mileage')
         plt.ylabel('estimated price')
-        # plt.xlim(data.min(0)[0]-1, data.max(0)[0]+1)
+        plt.xlim(xg.min()-1, xg.max()+1)
         plt.scatter(dots[:,0], dots[:, 1])
-        plt.title(f'After {self.epochs} iteration')
+        plt.title(title)
         plt.show()
 
 
@@ -49,10 +47,12 @@ class LinearRegression:
             self.estimator.weights_update(tmp0, tmp1)
 
         if plot:
-            self.graph(data, data)
+            scaled_x = np.linspace(start=data.min(axis=0)-1, stop=data.max(axis=0)+1, num=100)
+            self.graph(scaled_x, self.estimator.predict(scaled_x), data, 'g', f'Scaled data ({self.epochs})')
 
-            unscaled = np.reshape( np.asarray([df.km, self.estimator.predict(data[:,0]) * sigmas[1] + mus[1]]), (m, 2))
-            self.graph(unscaled, (np.matrix([df.km, df.price]).T).A)
+            x_lin = np.linspace(start=df.min(axis=0)[0]-1, stop=df.max(axis=0)[0]+1, num=100)
+            y_lin = self.estimator.predict(scaled_x[:,0]) * sigmas[1] + mus[1]
+            self.graph(x_lin, y_lin, (np.matrix([df.km, df.price]).T).A, 'r', 'Result')
             
         
         print(f'Resulting loss function: {self.loss_function(data)}')
