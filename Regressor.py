@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import numpy as np
+
 
 class Regressor:
     def __init__(self, theta0=0, theta1=0) -> None:
@@ -9,7 +11,7 @@ class Regressor:
     
     def predict(self, mileage) -> float:
         '''Based on the mileage calculates prize'''
-        return mileage * self.theta1 + self.theta0
+        return np.dot(mileage, self.theta1) + self.theta0
 
 
     def set_scaling_parameters(self, mus, sigmas):

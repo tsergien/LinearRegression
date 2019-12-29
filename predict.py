@@ -22,4 +22,3 @@ if __name__ == "__main__":
 
             scaled_mileage = (miles - mu) / sigma
             print(f'Estimated price is: ${int(estimator.predict(scaled_mileage) * sigma2 + mu2)}')
-
